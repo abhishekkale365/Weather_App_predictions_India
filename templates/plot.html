@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+
+{% if note %}
+<div class="note">{{ note }}</div>
+{% endif %}
+
+{% if images and images|length > 0 %}
+{% for img in images %}
+<img src="data:image/png;base64,{{ img }}" />
+{% endfor %}
+{% else %}
+<div class="note">No images to display for this view.</div>
+{% endif %}
+{% endblock %}

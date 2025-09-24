@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form class="inline" method="get" action="{{ url_for('predict') }}">
+    <label>City:</label>
+    <input type="text" name="city" value="{{ request.args.get('city','') }}" placeholder="e.g., Bikaner" />
+    <label style="margin-left:10px;">Horizon (days):</label>
+    <input type="number" name="horizon" min="1" max="14" value="{{ request.args.get('horizon',3) }}" />
+    <button class="btn" type="submit">Forecast</button>
+</form>
+
+{% if note %}
+<div class="note">{{ note }}</div>
+{% endif %}
+
+{% if table_html %}
+<h3>Forecast Table</h3>
+<div>{{ table_html | safe }}</div>
+{% endif %}
+
+{% if images and images|length > 0 %}
+<h3>Charts</h3>
+{% for img in images %}
+<img src="data:image/png;base64,{{ img }}" />
+{% endfor %}
+{% endif %}
+{% endblock %}

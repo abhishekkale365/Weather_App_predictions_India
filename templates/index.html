@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form class="inline" method="get" action="{{ url_for('index') }}">
+    <label>City:</label>
+    <select name="city" onchange="this.form.submit()">
+        {% for c in cities %}
+        <option value="{{c}}" {% if c==selected_city %}selected{% endif %}>{{c}}</option>
+        {% endfor %}
+    </select>
+    <label style="margin-left:10px;">Metric:</label>
+    <select name="metric" onchange="this.form.submit()">
+        <option value="{{metric}}">{{metric}}</option>
+        <option value="temperature_celsius">temperature_celsius</option>
+        <option value="humidity">humidity</option>
+        <option value="wind_kph">wind_kph</option>
+        <option value="pressure_mb">pressure_mb</option>
+        <option value="precip_mm">precip_mm</option>
+        <option value="uv_index">uv_index</option>
+    </select>
+</form>
+
+{% if images and images|length > 0 %}
+{% for img in images %}
+<img src="data:image/png;base64,{{ img }}" />
+{% endfor %}
+{% else %}
+<div class="note">No preview available.</div>
+{% endif %}
+
+<p>Use the buttons above to navigate to more visualizations. Your selected city/metric will carry through via the URL
+    parameters where relevant.</p>
+{% endblock %}

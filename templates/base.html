@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title or "Weather Analytics" }}</title>
+    <style>
+        body {
+            font-family: system-ui, Arial;
+            margin: 20px;
+        }
+
+        header {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        a.btn,
+        button.btn {
+            background: #0d6efd;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        a.btn.secondary {
+            background: #6c757d;
+        }
+
+        form.inline {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            border: 1px solid #eee;
+            margin: 10px 0;
+        }
+
+        .note {
+            padding: 10px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a class="btn" href="{{ url_for('index') }}">Home</a>
+        <a class="btn secondary"
+            href="{{ url_for('distributions', city=request.args.get('city'), metric=request.args.get('metric')) }}">Distributions</a>
+        <a class="btn secondary"
+            href="{{ url_for('correlation',  city=request.args.get('city'), metric=request.args.get('metric')) }}">Correlation</a>
+        <a class="btn secondary" href="{{ url_for('trend',        metric=request.args.get('metric')) }}">Trend (Top
+            Cities)</a>
+        <a class="btn secondary"
+            href="{{ url_for('predict', city=request.args.get('city'), horizon=request.args.get('horizon', 3)) }}">Predict</a>
+
+        <a class="btn secondary"
+            href="{{ url_for('weekday',      city=request.args.get('city'), metric=request.args.get('metric')) }}">Weekday</a>
+        <a class="btn secondary"
+            href="{{ url_for('hourly',       city=request.args.get('city'), metric=request.args.get('metric')) }}">Hourly</a>
+        <a class="btn secondary" href="{{ url_for('heatmap',      metric=request.args.get('metric')) }}">Monthly
+            Heatmap</a>
+        <a class="btn secondary" href="{{ url_for('scatter') }}">Scatter</a>
+        <a class="btn secondary" href="{{ url_for('geo') }}">Geo</a>
+    </header>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
